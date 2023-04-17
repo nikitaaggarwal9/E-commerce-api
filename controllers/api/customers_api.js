@@ -26,9 +26,11 @@ module.exports.view = async function (req, res) {
 
 module.exports.create = async function (req, res) {
   try {
-    let email = Customer.find(req.body.email);
+    let existingCustomer = await Customer.find({ email: req.body.email });
 
-    if (email) {
+    console.log(existingCustomer);
+
+    if (existingCustomer.length > 0) {
       return res.json(401, {
         message: "Email already exists!",
       });
@@ -63,11 +65,10 @@ module.exports.update = async function (req, res) {
     let user = await Customer.findById(req.params.id);
 
     if (user) {
-      user.name = req.body.name,
-      user.email = req.body.email,
-      user.phone = req.body.phone,
-
-      await user.save();
+      (user.name = req.body.name),
+        (user.email = req.body.email),
+        (user.phone = req.body.phone),
+        await user.save();
 
       return res.json(200, {
         message: "User updated successfully!",
