@@ -13,7 +13,7 @@ module.exports.view = async function (req, res) {
       });
     }
 
-    return res.json(401, {
+    return res.json(404, {
       message: "User not available!",
     });
   } catch (error) {
@@ -31,7 +31,7 @@ module.exports.create = async function (req, res) {
     console.log(existingCustomer);
 
     if (existingCustomer.length > 0) {
-      return res.json(401, {
+      return res.json(404, {
         message: "Email already exists!",
       });
     }
@@ -43,7 +43,7 @@ module.exports.create = async function (req, res) {
     });
 
     if (user) {
-      return res.json(200, {
+      return res.json(201, {
         message: "User created Succesfully",
         user: user,
       });
@@ -76,7 +76,7 @@ module.exports.update = async function (req, res) {
       });
     }
 
-    return res.json(401, {
+    return res.json(404, {
       message: "User not available!",
     });
   } catch (error) {
